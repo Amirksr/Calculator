@@ -3,8 +3,13 @@ import './Calculator.css';
 
 function Calculator(){
     let [result, setResult] = useState("");
+    const checkInput = (text) =>{
+        if(text === "÷") return "/"
+        if(text === "×") return "*"
+        return text
+    }
     const clickHandler = (e) =>{
-        let input = e.target.innerText;
+        let input = checkInput(e.target.innerText);
         if(input === "." && result.includes("."))return
         setResult(result + input);
     }
@@ -13,6 +18,9 @@ function Calculator(){
     }
     const backSpaceBtn = () =>{
         setResult(result.slice(0, -1))
+    }
+    const equalBtn = () =>{
+        setResult(String(eval(result)))
     }
     return(
         <div className="container">
@@ -35,7 +43,7 @@ function Calculator(){
                 <button onClick={clickHandler} className='color'>+</button>
                 <button onClick={clickHandler}>0</button>
                 <button onClick={clickHandler}>.</button>
-                <button className='color twocol'>=</button>
+                <button onClick={equalBtn} className='color twocol'>=</button>
             </div>
         </div>
     )
