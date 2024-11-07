@@ -3,6 +3,9 @@ import './Calculator.css';
 
 function Calculator(){
     let [result, setResult] = useState("");
+    let [hasDot, setHasDot] = useState(false);
+    let operators = ["+" , "*" , "/" , "-"]
+
     const checkInput = (text) =>{
         if(text === "÷") return "/"
         if(text === "×") return "*"
@@ -10,17 +13,27 @@ function Calculator(){
     }
     const clickHandler = (e) =>{
         let input = checkInput(e.target.innerText);
-        if(input === "." && result.includes("."))return
+        if(input === "." ){
+            if(hasDot == true) return
+            else setHasDot(true)
+        }
+        if(operators.includes(input)) {
+            setHasDot(false) 
+        }
         setResult(result + input);
     }
     const clearBtn = () =>{
         setResult("");
+        setHasDot(false)
     }
     const backSpaceBtn = () =>{
+        if(result.endsWith("."))
+            setHasDot(false)
         setResult(result.slice(0, -1))
     }
     const equalBtn = () =>{
         setResult(String(eval(result)))
+        setHasDot(false)
     }
     return(
         <div className="container">
