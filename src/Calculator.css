@@ -8,6 +8,7 @@
     text-align: right;
     background-color: #262834;
     color: white;
+    font-size: 28px;
 }
 .buttons {
     display: flex;
